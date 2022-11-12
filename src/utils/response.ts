@@ -12,3 +12,5 @@ const response = (
     message,
     data,
   });
+
+export default response;
