@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      Int       @id @default(autoincrement())
+  admin   Admin[]
+  patient Patient[]
+  doctor  Doctor[]
+}
+
+model Admin {
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+  adminId   Int      @id @default(autoincrement())
+  govId     Int      @unique
+  name      String?
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Doctor {
+  User               User?           @relation(fields: [userId], references: [id])
+  userId             Int?
+  doctorId           Int             @id @default(autoincrement())
+  govId              Int             @unique
+  name               String?
+  email              String          @unique
+  password           String
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  Category           Category?       @relation(fields: [categoryCategoryId], references: [categoryId])
+  categoryCategoryId Int?
+  MedicalRecord      MedicalRecord[]
+}
+
+model Patient {
+  User          User?           @relation(fields: [userId], references: [id])
+  userId        Int?
+  patientId     Int             @id @default(autoincrement())
+  govId         Int             @unique
+  name          String?
+  email         String          @unique
+  password      String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  medicalRecord MedicalRecord[]
+}
+
+model MedicalRecord {
+  medRecId         Int        @id @default(autoincrement())
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  Patient          Patient?   @relation(fields: [patientPatientId], references: [patientId])
+  Doctor           Doctor?    @relation(fields: [doctorDoctorId], references: [doctorId])
+  patientPatientId Int?
+  category         Category[]
+  doctorDoctorId   Int?
+}
+
+model Category {
+  categoryId     Int             @id @default(autoincrement())
+  categoryName   Categories
+  doctor         Doctor[]
+  doctorDoctorId Int?
+  medicalRecord  MedicalRecord[]
+}
+
+enum Categories {
+  Psychiatry
+  Neurology
+}
