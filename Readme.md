@@ -10,10 +10,10 @@
 ## Installation
 
 ```sh
-$ git clone https://github.com/Adiyasa26/creative-station-test-api.git
+$ git clone git@github.com:maulanaadil started-template-express.git
 ```
 
-Configure the database on `.env.example`, but create the `.env` yourself
+Configure the database on `.env.example`
 
 install packages
 
@@ -27,10 +27,10 @@ build the project first, for the development / production
 $ npm run build
 ```
 
-create database development
+migrate database development
 
 ```sh
-$ npx prisma db push
+$ npx prisma migrate dev --name init
 ```
 
 seeding the data to database
@@ -43,14 +43,6 @@ start development
 
 ```sh
 $ npm run dev
-```
-
-start Testing with postman
-
-```sh
-Open Postman,
-Import file "Review API Test.postman_collection.json",
-Run Collection
 ```
 
 ## Command Line Options
