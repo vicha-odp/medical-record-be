@@ -18,7 +18,7 @@ const getUserAdminById = async (req: Request, res: Response) => {
       return response(res, httpCodes.notFound, 'Admin not Found!', null);
     }
 
-    return response(res, httpCodes.created, 'Get Admin success', userAdminById);
+    return response(res, httpCodes.ok, 'Get Admin success', userAdminById);
   } catch (error: any) {
     return response(res, httpCodes.internalServerError, error.message, null);
   }
@@ -26,9 +26,12 @@ const getUserAdminById = async (req: Request, res: Response) => {
 
 const getUserPatientById = async (req: Request, res: Response) => {
   try {
-    const userPatientById = await prisma.admin.findUnique({
+    const userPatientById = await prisma.patient.findUnique({
       where: {
         govId: String(req.params.govId),
+      },
+      include: {
+        medicalRecord: true,
       },
     });
 
@@ -36,12 +39,7 @@ const getUserPatientById = async (req: Request, res: Response) => {
       return response(res, httpCodes.notFound, 'Patient not Found!', null);
     }
 
-    return response(
-      res,
-      httpCodes.created,
-      'Get Patient success',
-      userPatientById
-    );
+    return response(res, httpCodes.ok, 'Get Patient success', userPatientById);
   } catch (error: any) {
     return response(res, httpCodes.internalServerError, error.message, null);
   }
@@ -49,9 +47,12 @@ const getUserPatientById = async (req: Request, res: Response) => {
 
 const getUserDoctorById = async (req: Request, res: Response) => {
   try {
-    const userDoctorById = await prisma.admin.findUnique({
+    const userDoctorById = await prisma.doctor.findUnique({
       where: {
         govId: String(req.params.govId),
+      },
+      include: {
+        medicalRecord: true,
       },
     });
 
@@ -59,12 +60,7 @@ const getUserDoctorById = async (req: Request, res: Response) => {
       return response(res, httpCodes.notFound, 'Doctor not Found!', null);
     }
 
-    return response(
-      res,
-      httpCodes.created,
-      'Get Doctor success',
-      userDoctorById
-    );
+    return response(res, httpCodes.ok, 'Get Doctor success', userDoctorById);
   } catch (error: any) {
     return response(res, httpCodes.internalServerError, error.message, null);
   }

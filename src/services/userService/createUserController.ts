@@ -22,13 +22,6 @@ const createUserDefaultAdmin = async (req: Request, res: Response) => {
     });
 
     if (!userAdminById) {
-      return response(
-        res,
-        httpCodes.forbidden,
-        'Default admin already exist!',
-        null
-      );
-    } else {
       const userDefaultAdmin = await prisma.admin.create({
         data: {
           govId,
@@ -42,6 +35,13 @@ const createUserDefaultAdmin = async (req: Request, res: Response) => {
         httpCodes.created,
         'Head Admin has been created',
         userDefaultAdmin
+      );
+    } else {
+      return response(
+        res,
+        httpCodes.forbidden,
+        'Default admin already exist!',
+        null
       );
     }
   } catch (error: any) {
@@ -129,7 +129,7 @@ const createUserDoctor = async (req: Request, res: Response) => {
     return response(
       res,
       httpCodes.created,
-      'Patient created successfully!',
+      'Doctor created successfully!',
       userDoctor
     );
   } catch (error: any) {
@@ -143,3 +143,5 @@ export default {
   createUserPatient,
   createUserDoctor,
 };
+
+//satuDoang.createUserDefaultAdmin

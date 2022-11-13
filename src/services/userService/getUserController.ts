@@ -56,7 +56,7 @@ const getAllPatientData = async (req: Request, res: Response) => {
 
 const getAllDoctorData = async (req: Request, res: Response) => {
   try {
-    const allDoctorData = await prisma.patient.findMany({
+    const allDoctorData = await prisma.doctor.findMany({
       orderBy: {
         createdAt: 'desc',
       },
