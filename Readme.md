@@ -10,7 +10,7 @@
 ## Installation
 
 ```sh
-$ git clone git@github.com:maulanaadil started-template-express.git
+$ git clone https://github.com/vicha-odp/medical-record-be.git
 ```
 
 Configure the database on `.env.example`
@@ -18,13 +18,13 @@ Configure the database on `.env.example`
 install packages
 
 ```sh
-$ npm install
+$ yarn
 ```
 
 build the project first, for the development / production
 
 ```sh
-$ npm run build
+$ yarn build
 ```
 
 migrate database development
@@ -42,7 +42,7 @@ $ npm run seed
 start development
 
 ```sh
-$ npm run dev
+$ yarn dev
 ```
 
 ## Command Line Options
