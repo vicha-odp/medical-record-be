@@ -36,9 +36,6 @@ const getAllMedicalRecord = async (req: Request, res: Response) => {
       orderBy: {
         createdAt: 'desc',
       },
-      include: {
-        category: true,
-      },
     });
 
     return response(
