@@ -26,9 +26,9 @@ CREATE TABLE "Doctor" (
     "name" TEXT,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "categoryName" "Categories" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "categoryName" "Categories" NOT NULL,
 
     CONSTRAINT "Doctor_pkey" PRIMARY KEY ("doctorId")
 );
@@ -50,10 +50,12 @@ CREATE TABLE "Patient" (
 -- CreateTable
 CREATE TABLE "MedicalRecord" (
     "medRecId" SERIAL NOT NULL,
+    "patientGovId" TEXT,
+    "doctorGovId" TEXT,
+    "categoryId" "Categories",
+    "description" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "patientPatientId" INTEGER,
-    "doctorDoctorId" INTEGER,
 
     CONSTRAINT "MedicalRecord_pkey" PRIMARY KEY ("medRecId")
 );
@@ -66,12 +68,6 @@ CREATE TABLE "Category" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Category_pkey" PRIMARY KEY ("categoryId")
-);
-
--- CreateTable
-CREATE TABLE "_CategoryToMedicalRecord" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
 );
 
 -- CreateIndex
@@ -93,25 +89,25 @@ CREATE UNIQUE INDEX "Patient_govId_key" ON "Patient"("govId");
 CREATE UNIQUE INDEX "Patient_email_key" ON "Patient"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "MedicalRecord_patientGovId_key" ON "MedicalRecord"("patientGovId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "MedicalRecord_doctorGovId_key" ON "MedicalRecord"("doctorGovId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "MedicalRecord_categoryId_key" ON "MedicalRecord"("categoryId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Category_categoryName_key" ON "Category"("categoryName");
-
--- CreateIndex
-CREATE UNIQUE INDEX "_CategoryToMedicalRecord_AB_unique" ON "_CategoryToMedicalRecord"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_CategoryToMedicalRecord_B_index" ON "_CategoryToMedicalRecord"("B");
 
 -- AddForeignKey
 ALTER TABLE "Doctor" ADD CONSTRAINT "Doctor_categoryName_fkey" FOREIGN KEY ("categoryName") REFERENCES "Category"("categoryName") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MedicalRecord" ADD CONSTRAINT "MedicalRecord_doctorDoctorId_fkey" FOREIGN KEY ("doctorDoctorId") REFERENCES "Doctor"("doctorId") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "MedicalRecord" ADD CONSTRAINT "MedicalRecord_doctorGovId_fkey" FOREIGN KEY ("doctorGovId") REFERENCES "Doctor"("govId") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MedicalRecord" ADD CONSTRAINT "MedicalRecord_patientPatientId_fkey" FOREIGN KEY ("patientPatientId") REFERENCES "Patient"("patientId") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "MedicalRecord" ADD CONSTRAINT "MedicalRecord_patientGovId_fkey" FOREIGN KEY ("patientGovId") REFERENCES "Patient"("govId") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_CategoryToMedicalRecord" ADD CONSTRAINT "_CategoryToMedicalRecord_A_fkey" FOREIGN KEY ("A") REFERENCES "Category"("categoryId") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_CategoryToMedicalRecord" ADD CONSTRAINT "_CategoryToMedicalRecord_B_fkey" FOREIGN KEY ("B") REFERENCES "MedicalRecord"("medRecId") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "MedicalRecord" ADD CONSTRAINT "MedicalRecord_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("categoryName") ON DELETE SET NULL ON UPDATE CASCADE;

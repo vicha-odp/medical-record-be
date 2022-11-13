@@ -25,11 +25,11 @@ model Doctor {
   name          String?
   email         String          @unique
   password      String
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
   categoryName  Categories
   category      Category        @relation(fields: [categoryName], references: [categoryName])
-  MedicalRecord MedicalRecord[]
+  medicalRecord MedicalRecord[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 }
 
 model Patient {
@@ -39,20 +39,22 @@ model Patient {
   name          String?
   email         String          @unique
   password      String
+  medicalRecord MedicalRecord[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-  medicalRecord MedicalRecord[]
 }
 
 model MedicalRecord {
-  medRecId         Int        @id @default(autoincrement())
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  patientPatientId Int?
-  doctorDoctorId   Int?
-  doctorData       Doctor?    @relation(fields: [doctorDoctorId], references: [doctorId])
-  patientData      Patient?   @relation(fields: [patientPatientId], references: [patientId])
-  category         Category[]
+  medRecId     Int         @id @default(autoincrement())
+  patientGovId String?     @unique
+  doctorGovId  String?     @unique
+  categoryId   Categories? @unique
+  description  String
+  doctorData   Doctor?     @relation(fields: [doctorGovId], references: [govId])
+  patientData  Patient?    @relation(fields: [patientGovId], references: [govId])
+  category     Category?   @relation(fields: [categoryId], references: [categoryName])
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 }
 
 model Category {
