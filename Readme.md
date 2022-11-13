@@ -30,13 +30,7 @@ $ yarn build
 migrate database development
 
 ```sh
-$ npx prisma migrate dev --name init
-```
-
-seeding the data to database
-
-```sh
-$ npm run seed
+$ npx prisma migrate dev
 ```
 
 start development
