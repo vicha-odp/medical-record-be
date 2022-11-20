@@ -4,7 +4,7 @@ import cors from 'cors';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
-import { smartcontractAbi } from './config';
+import { smartcontractAbi } from './utils/blockchain-config';
 import router from './routes';
 
 dotenv.config();
