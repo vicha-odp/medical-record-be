@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "seed": "ts-node prisma/seed.ts",
-    "start": "node dist/server.js",
+    "start": "tsc --module 'CommonJS' && TS_NODE_BASEURL=./dist node -r tsconfig-paths/register dist/server.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon ./src/server.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
