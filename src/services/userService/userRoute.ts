@@ -13,10 +13,6 @@ router.post(
 router.post('/admin/createAdmin', createUser.createUserAdmin);
 router.post('/patient/createPatient', createUser.createUserPatient);
 router.post('/doctor/createDoctor', createUser.createUserDoctor);
-router.post(
-  '/patient/createPatientBlockchain',
-  createUser.createUserPatientBlockchain
-);
 
 // get
 router.get('/admin/getAdmin', getUser.getAllAdminData);

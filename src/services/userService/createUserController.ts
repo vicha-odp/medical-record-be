@@ -123,24 +123,6 @@ const createUserPatient = async (req: Request, res: Response) => {
   }
 };
 
-const createUserPatientBlockchain = async (req: Request, res: Response) => {
-  try {
-    const { govId, name, address, fatherNames, motherNames } = req.body;
-    const reponse = await contract.methods
-      .addPatient(govId, name, address, fatherNames, motherNames)
-      .send();
-
-    return response(
-      res,
-      httpCodes.created,
-      'Patient created successfully!',
-      reponse
-    );
-  } catch (error: any) {
-    return response(res, httpCodes.internalServerError, error.message, null);
-  }
-};
-
 const createUserDoctor = async (req: Request, res: Response) => {
   try {
     const {
@@ -197,6 +179,5 @@ export default {
   createUserDefaultAdmin,
   createUserAdmin,
   createUserPatient,
-  createUserPatientBlockchain,
   createUserDoctor,
 };
