@@ -8,15 +8,14 @@ datasource db {
 }
 
 model Admin {
-  adminId      Int      @id @default(autoincrement())
-  role         Role     @default(Admin)
-  govId        String   @unique
-  name         String?
-  email        String   @unique
-  password     String
-  refreshToken String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  adminId   Int      @id @default(autoincrement())
+  role      Role     @default(Admin)
+  govId     String   @unique
+  name      String?
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Doctor {
@@ -26,7 +25,6 @@ model Doctor {
   name          String?
   email         String          @unique
   password      String
-  refreshToken  String?
   categoryName  Categories
   category      Category        @relation(fields: [categoryName], references: [categoryName])
   medicalRecord MedicalRecord[]
@@ -41,7 +39,6 @@ model Patient {
   name          String?
   email         String          @unique
   password      String
-  refreshToken  String?
   medicalRecord MedicalRecord[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
