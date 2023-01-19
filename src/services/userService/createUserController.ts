@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { PrismaClient, Categories } from '@prisma/client';
 import response from '@utils/response';
 import httpCodes from '@utils/httpCodes';
-import { contract } from 'server';
+import { addressAccount, contract } from 'server';
 const { hash } = require('bcryptjs');
 
 const prisma = new PrismaClient();
@@ -11,13 +11,11 @@ const prisma = new PrismaClient();
 const createUserDefaultAdmin = async (req: Request, res: Response) => {
   try {
     const { govId, name, email, password } = {
-      govId: '3403012604000001',
-      name: 'Ilyas Adiyasa',
-      email: 'ilyasadiyasa4@gmail.com',
+      govId: '3374065710000002',
+      name: 'Vicha Octavia Dewanto Putri',
+      email: 'vichaoctaviadp@gmail.com',
       password: '12345678',
     };
-
-    const hashedPassword = await hash(password, 10);
 
     const userAdminById = await prisma.admin.findUnique({
       where: {
@@ -31,7 +29,7 @@ const createUserDefaultAdmin = async (req: Request, res: Response) => {
           govId,
           name,
           email,
-          password: hashedPassword,
+          password,
         },
       });
       return response(
@@ -57,8 +55,6 @@ const createUserAdmin = async (req: Request, res: Response) => {
   try {
     const { govId, name, email, password } = req.body;
 
-    const hashedPassword = await hash(password, 10);
-
     const userAdminById = await prisma.admin.findUnique({
       where: {
         govId: String(govId),
@@ -71,7 +67,7 @@ const createUserAdmin = async (req: Request, res: Response) => {
           govId,
           name,
           email,
-          password: hashedPassword,
+          password,
         },
       });
       return response(
@@ -92,8 +88,6 @@ const createUserPatient = async (req: Request, res: Response) => {
   try {
     const { govId, name, email, password } = req.body;
 
-    const hashedPassword = await hash(password, 10);
-
     const userPatientById = await prisma.patient.findUnique({
       where: {
         govId: String(govId),
@@ -106,7 +100,7 @@ const createUserPatient = async (req: Request, res: Response) => {
           govId,
           name,
           email,
-          password: hashedPassword,
+          password,
         },
       });
       return response(
@@ -143,8 +137,6 @@ const createUserDoctor = async (req: Request, res: Response) => {
       ? Categories.Psychiatry
       : Categories.Neurology;
 
-    const hashedPassword = await hash(password, 10);
-
     const userDoctorById = await prisma.doctor.findUnique({
       where: {
         govId: String(govId),
@@ -157,7 +149,7 @@ const createUserDoctor = async (req: Request, res: Response) => {
           govId,
           name,
           email,
-          password: hashedPassword,
+          password,
           categoryName,
         },
       });
