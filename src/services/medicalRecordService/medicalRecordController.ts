@@ -31,19 +31,73 @@ const createMedicalRecord = async (req: Request, res: Response) => {
 
 // Get All Category
 const getAllMedicalRecord = async (req: Request, res: Response) => {
-  try {
-    const category = await prisma.medicalRecord.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+  const docId = req.query.doctorId as string;
+  const patId = req.query.patientId as string;
 
-    return response(
-      res,
-      httpCodes.ok,
-      'Get all Category Data Success',
-      category
-    );
+  try {
+    if (docId !== null && patId !== null) {
+      const category = await prisma.medicalRecord.findMany({
+        orderBy: {
+          createdAt: 'desc',
+        },
+        where: {
+          patientGovId: patId,
+          doctorGovId: docId,
+        },
+      });
+
+      return response(
+        res,
+        httpCodes.ok,
+        'Get all Category Data Success',
+        category
+      );
+    } else if (docId) {
+      const category = await prisma.medicalRecord.findMany({
+        orderBy: {
+          createdAt: 'desc',
+        },
+        where: {
+          doctorGovId: docId,
+        },
+      });
+
+      return response(
+        res,
+        httpCodes.ok,
+        'Get all Category Data Success',
+        category
+      );
+    } else if (patId) {
+      const category = await prisma.medicalRecord.findMany({
+        orderBy: {
+          createdAt: 'desc',
+        },
+        where: {
+          patientGovId: patId,
+        },
+      });
+
+      return response(
+        res,
+        httpCodes.ok,
+        'Get all Category Data Success',
+        category
+      );
+    } else {
+      const category = await prisma.medicalRecord.findMany({
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
+
+      return response(
+        res,
+        httpCodes.ok,
+        'Get all Category Data Success',
+        category
+      );
+    }
   } catch (error) {
     return response(
       res,
