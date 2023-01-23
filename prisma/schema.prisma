@@ -46,9 +46,9 @@ model Patient {
 
 model MedicalRecord {
   medRecId     Int         @id @default(autoincrement())
-  patientGovId String?     @unique
-  doctorGovId  String?     @unique
-  categoryId   Categories? @unique
+  patientGovId String?
+  doctorGovId  String?
+  categoryId   Categories?
   description  String
   doctorData   Doctor?     @relation(fields: [doctorGovId], references: [govId])
   patientData  Patient?    @relation(fields: [patientGovId], references: [govId])

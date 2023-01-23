@@ -89,15 +89,6 @@ CREATE UNIQUE INDEX "Patient_govId_key" ON "Patient"("govId");
 CREATE UNIQUE INDEX "Patient_email_key" ON "Patient"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "MedicalRecord_patientGovId_key" ON "MedicalRecord"("patientGovId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "MedicalRecord_doctorGovId_key" ON "MedicalRecord"("doctorGovId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "MedicalRecord_categoryId_key" ON "MedicalRecord"("categoryId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Category_categoryName_key" ON "Category"("categoryName");
 
 -- AddForeignKey
