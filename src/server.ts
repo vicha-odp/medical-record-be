@@ -14,7 +14,7 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
-export const contractAddress = '0x27a01562b027eb8dde3f334da2a114d8c8bc98d5';
+export const contractAddress = "0x4669413b6f6df4a4e908def93b21d82ed5cc6b4e";
 export const addressAccount = '0xf6be359e980e540c7f3cb67a8bd2085419d65429';
 const contractABI = smartcontractAbi;
 
