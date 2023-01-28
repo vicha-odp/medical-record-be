@@ -90,9 +90,7 @@ app.post('/bc/getMedicalRecord', async (req: Request, res: Response) => {
     .getRecord(govId)
     .call({ from: contractAddress });
 
-  res.send(
-    JSON.parse(JSON.stringify(`{"data": ${data !== '' ? data : '""'}}`))
-  );
+  res.send(JSON.parse(JSON.stringify(`{"data": "${data}"}`)));
 });
 
 app.post('/bc/addMedicalRecord', async (req: Request, res: Response) => {
