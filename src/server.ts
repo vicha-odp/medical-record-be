@@ -14,7 +14,7 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
-export const contractAddress = '0xdb10253ad5253017878ec71add2f0d045a451afb';
+export const contractAddress = '0x27a01562b027eb8dde3f334da2a114d8c8bc98d5';
 export const addressAccount = '0xf6be359e980e540c7f3cb67a8bd2085419d65429';
 const contractABI = smartcontractAbi;
 
@@ -90,7 +90,9 @@ app.post('/bc/getMedicalRecord', async (req: Request, res: Response) => {
     .getRecord(govId)
     .call({ from: contractAddress });
 
-  res.send(JSON.parse(JSON.stringify(`{"data": ${data}}`)));
+  res.send(
+    JSON.parse(JSON.stringify(`{"data": ${data !== '' ? data : '""'}}`))
+  );
 });
 
 app.post('/bc/addMedicalRecord', async (req: Request, res: Response) => {
