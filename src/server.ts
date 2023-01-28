@@ -14,7 +14,7 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
-export const contractAddress = "0x4669413b6f6df4a4e908def93b21d82ed5cc6b4e";
+export const contractAddress = '0xdb10253ad5253017878ec71add2f0d045a451afb';
 export const addressAccount = '0xf6be359e980e540c7f3cb67a8bd2085419d65429';
 const contractABI = smartcontractAbi;
 
@@ -37,7 +37,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Medical Record App');
 });
 
-app.get('/bc/getPatient', async (req: Request, res: Response) => {
+app.post('/bc/getPatient', async (req: Request, res: Response) => {
   const { govId } = req.body;
 
   const data = await contract.methods
@@ -61,7 +61,7 @@ app.post('/bc/addPatient', async (req: Request, res: Response) => {
   res.send(data);
 });
 
-app.get('/bc/getDoctor', async (req: Request, res: Response) => {
+app.post('/bc/getDoctor', async (req: Request, res: Response) => {
   const { govId } = req.body;
 
   const data = await contract.methods
@@ -83,7 +83,7 @@ app.post('/bc/addDoctor', async (req: Request, res: Response) => {
   res.send(data);
 });
 
-app.get('/bc/getMedicalRecord', async (req: Request, res: Response) => {
+app.post('/bc/getMedicalRecord', async (req: Request, res: Response) => {
   const { govId } = req.body;
 
   const data = await contract.methods
